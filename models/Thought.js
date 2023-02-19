@@ -34,6 +34,28 @@ thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
 });
 
+// -----Reaction Schema to use in thought no model
+const reactionSchema = new Schema({
+    reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
+// -----End of reaction Schema
+
 // create model using thoughtSchema
 const Thought = model("thought", thoughtSchema);
 
