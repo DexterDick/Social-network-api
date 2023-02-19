@@ -9,9 +9,9 @@ const {
     deleteReactionById,
 } = require("../../controllers/thoughtController.js");
 
-// api/thought
+// api/thoughts
 router.route("/").get(getAllThoughts).post(createThought);
-// api/thought/:userId
+// api/thoughts/:userId
 router
     .route("/:id")
     .get(getSingleThoughtById)
