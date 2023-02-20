@@ -14,7 +14,18 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
-    getSingleUserById(req, res) {},
+    getSingleUserById(req, res) {
+        User.findOne({ _id: req.params.id })
+            .then((user) => {
+                !user
+                    ? res.status(404).json({ message: "No user with that ID" })
+                    : res.status(200).json(user);
+            })
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
+    },
 
     createNewUser(req, res) {
         User.create(req.body)
@@ -36,6 +47,29 @@ module.exports = {
     },
 
     deleteUser(req, res) {
-        User.deleteOne({ _id: req.params.id });
+        // Remove a user's associated thoughts when deleted.
+        User.findByIdAndRemove({ _id: req.params.id })
+            .then((user) => {
+                !user
+                    ? res.status(404).json({
+                          message: "No user with id found to delete",
+                      })
+                    : Thought.findOneAndUpdate(
+                          { thoughts: req.params.id },
+                          { $pull: { thoughts: req.params.id } },
+                          { new: true }
+                      );
+            })
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({
+                          message: "User deleted but no thoughts found",
+                      })
+                    : res.json({ message: "Thoughts successfully deleted" })
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
     },
 };
