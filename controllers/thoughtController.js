@@ -57,7 +57,16 @@ module.exports = {
                 res.status(500).json(err);
             });
     },
-    deleteThoughtById(req, res) {},
+    deleteThoughtById(req, res) {
+        // still has some issues contine here
+        Thought.findOneAndDelete({ _id: req.params.id }).then((thoughtData) => {
+            !thoughtData
+                ? res.status(404).json({ message: "no thoughts with that ID" })
+                : User.deleteMany({ _id: { $in: user } });
+        });
+
+        // still has some issues contine here
+    },
     createReaction(req, res) {},
     deleteReactionById(req, res) {},
 };
