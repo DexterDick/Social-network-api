@@ -59,14 +59,57 @@ module.exports = {
     },
     deleteThoughtById(req, res) {
         // still has some issues contine here
-        Thought.findOneAndDelete({ _id: req.params.id }).then((thoughtData) => {
-            !thoughtData
-                ? res.status(404).json({ message: "no thoughts with that ID" })
-                : User.deleteMany({ _id: { $in: user } });
-        });
+        Thought.findOneAndDelete({ _id: req.params.id })
+            .then((thoughtData) => {
+                !thoughtData
+                    ? res
+                          .status(404)
+                          .json({ message: "no thoughts with that ID" })
+                    : User.findOneAndUpdate(
+                          { thoughts: req.params.id },
+                          { $pull: { thoughts: req.params.id } },
+                          { new: true }
+                      );
+            })
+            .then(() => res.json({ message: "Thought deleted from user" }))
+            .catch((err) => res.status(500).json(err));
 
         // still has some issues contine here
     },
-    createReaction(req, res) {},
-    deleteReactionById(req, res) {},
+    createReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $push: { reactions: req.body } },
+            { new: true }
+        )
+            .then((thoughtData) => {
+                !thoughtData
+                    ? res
+                          .status(404)
+                          .json({ mesaage: "no thoughts with that id" })
+                    : res.json(thoughtData);
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
+    deleteReactionById(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: req.parms.reactionId } },
+            { new: true }
+        )
+            .then((reaction) => {
+                !reaction
+                    ? res.status(404).json({
+                          message: "reaction deleted, but no courses found",
+                      })
+                    : res.json({ message: "reacton successfully deleted" });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
 };
