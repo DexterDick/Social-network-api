@@ -40,7 +40,7 @@ module.exports = {
             });
     },
     updateThoughtById(req, res) {
-        Thought.updateOneandUdate(
+        Thought.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
             { runValidators: true, new: true }
@@ -58,9 +58,11 @@ module.exports = {
             });
     },
     deleteThoughtById(req, res) {
+        console.log(req.body);
         // still has some issues contine here
         Thought.findOneAndDelete({ _id: req.params.id })
             .then((thoughtData) => {
+                console.log(thoughtData);
                 !thoughtData
                     ? res
                           .status(404)
