@@ -62,7 +62,6 @@ module.exports = {
         // still has some issues contine here
         Thought.findOneAndDelete({ _id: req.params.id })
             .then((thoughtData) => {
-                console.log(thoughtData);
                 !thoughtData
                     ? res
                           .status(404)
