@@ -6,7 +6,7 @@ Social network api showcases use of MongoDB, Mongoose and Express to build a ful
 users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
 API Routes
-<code>/api/users
+<code>/api/users</code>
 
 -   <code>GET</code> all users
 -   <code>GET</code> a single user by its <code>\_id</code> and populated thought and friend data
@@ -30,7 +30,7 @@ API Routes
 
 <code>/api/thoughts</code>
 
--   <code>GET to get all thoughts</code>
+-   <code>GET</code> to get all thoughts
 -   <code>GET</code> to get a single thought by its <code>\_id</code>
 -   <code>POST</code> to create a new thought (don't forget to push the created thought's \_id to the associated user's thoughts array field)
 
@@ -42,7 +42,7 @@ API Routes
 }</code>
 
 -   <code>PUT</code> to update a thought by its <code>\_id</code>
--   <code>DELETE</code> to remove a thought by its <code>\_id<code>
+-   <code>DELETE</code> to remove a thought by its <code>\_id</code>
 
 <code>/api/thoughts/:thoughtId/reactions</code>
 
