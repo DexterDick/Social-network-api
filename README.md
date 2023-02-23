@@ -1,5 +1,3 @@
-#
-
 # Social-Network-API
 
 ## Description
@@ -36,14 +34,12 @@ API Routes
 -   <code>GET</code> to get a single thought by its <code>\_id</code>
 -   <code>POST</code> to create a new thought (don't forget to push the created thought's \_id to the associated user's thoughts array field)
 
-<code>
-  // example data
+<code>// example data
 {
-  "thoughtText": "Here's a cool thought...",
-  "username": "lernantino",
-  "userId": "5edff358a0fcb779aa7b118b"
-}
-</code>
+"thoughtText": "Here's a cool thought...",
+"username": "lernantino",
+"userId": "5edff358a0fcb779aa7b118b"
+}</code>
 
 -   <code>PUT</code> to update a thought by its <code>\_id</code>
 -   <code>DELETE</code> to remove a thought by its <code>\_id<code>
@@ -55,7 +51,7 @@ API Routes
 
 ## Screenshots
 
-![Insomnia image showing api route](.\images\Screenshot_1.png)
+![Insomnia image showing api route](./images/Screenshot_1.png)
 
 # Videos
 
